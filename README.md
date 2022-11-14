@@ -104,18 +104,15 @@ talosctl --talosconfig=./talosconfig config endpoint 192.168.57.8
 Create a file for each control plane node from the template [talos/controlplane.yaml](talos/controlplane.yaml), save as `cp#.yaml`.
 The various tokens, certs and keys can be found in the `controlplane.yaml` file that `talosctl` generated.
 
-Next, create a file for each control plane node from the template [talos/join.yaml](talos/join.yaml), save as `w#.yaml`.
+Next, create a file for each control plane node from the template [talos/join.yaml](talos/join.yaml), save as `wn#.yaml`.
 
 Apply these configs to your nodes, you will need to change the IPs to match whatever was assigned by DHCP:
 
 ```shell
 talosctl apply-config --insecure --nodes 192.168.57.50 --file cp0.yaml
-talosctl apply-config --insecure --nodes 192.168.57.52 --file cp1.yaml
-talosctl apply-config --insecure --nodes 192.168.57.51 --file cp2.yaml
-talosctl apply-config --insecure --nodes 192.168.57.56 --file w0.yaml
-talosctl apply-config --insecure --nodes 192.168.57.54 --file w1.yaml
-talosctl apply-config --insecure --nodes 192.168.57.53 --file w2.yaml
-talosctl apply-config --insecure --nodes 192.168.57.55 --file w3.yaml
+talosctl apply-config --insecure --nodes 192.168.57.54 --file wn0.yaml
+talosctl apply-config --insecure --nodes 192.168.57.55 --file wn1.yaml
+talosctl apply-config --insecure --nodes 192.168.57.56 --file wn2.yaml
 ```
 
 Once controlplane-0 is started you'll be able to bootstrap the cluster:
@@ -132,6 +129,7 @@ talosctl kubeconfig --nodes 192.168.57.10
 
 The bootstrap process will take some time to complete, wait until all nodes and pods are online and ready. You can monitor
 them (once the kubernetes endpoint comes up) with your favorite app (e.g. Lens or k9s) or using `kubectl`:
+
 ```shell
   watch "kubectl get nodes -o wide; kubectl get pods -A -o wide;"
   # OR
