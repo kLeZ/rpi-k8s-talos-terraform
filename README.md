@@ -6,6 +6,7 @@ for the OS and building the Kubernetes cluster. After the cluster is bootstraped
 ## Features
 
 At the end of this tutorial you'll have a fully working Kubernetes cluster with the following services configured and ready to use:
+
 * [Talos](https://talos.dev) - Minimal and hardened operating system and tools that deploy and manage kubernetes nodes/clusters.
   * Virtual (shared) IP address for the talos and Kubernetes endpoints
 * [MetalLB](https://metallb.universe.tf) - Load balancers using virtual/shared IPs 
@@ -22,6 +23,7 @@ At the end of this tutorial you'll have a fully working Kubernetes cluster with 
 * [Vertical Pod Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler) - Suggest or automatically adjust resource limits and requests for pods.
 
 ## Helm Charts and Terraform Modules Used
+
 * [cert-manager](https://cert-manager.io/docs/installation/kubernetes/#installing-with-helm) v1.3.1
 * [metrics-server](https://github.com/helm/charts/tree/master/stable/metrics-server) 2.11.4
 * [vpa](https://artifacthub.io/packages/helm/fairwinds-stable/vpa) 0.3.2
@@ -37,15 +39,15 @@ such as installing software, editing files and using a command line interface.
 
 ### Hardware
 
-* 4 or more raspberry pi 4 boards (7 minimum recommended).
-  * 3 nodes for the control plane, the rest are workers.
-  * This tutorial assumes 3 control plane and 4 worker nodes.
-  * I used 3x rpi4-4GB for the control plane and 4x rpi4-8GB for the workers.
-  * If you have less than 4 worker nodes you may need to tweak the `ceph-block-classes` and `ceph-object-classes` terraform variables.
+* 4 or more raspberry pi 4 boards.
+  * 1 node for the control plane, the rest are workers.
+  * This tutorial assumes 1 control plane and 3 worker nodes.
+  * I used4x rpi4-8GB for the nodes.
+  * If you have less than 3 worker nodes you may need to tweak the `ceph-block-classes` and `ceph-object-classes` terraform variables.
 * microSD cards and power supplies for each rpi.
-  * I used 64GB samsung pro endurance microSD cards but any C10/U1 card will do.
+  * I used 64GB pioneer microSD cards but any C10/U1 card will do.
 * Storage drive attached to each worker node, to be used for Rook-Ceph.
-  * I used 128GB USB flash drives for my testing.
+  * I used 64GB USB flash drives for my testing.
   * You'll want to ensure that the drives have no partitions and are using GPT partitioning. This can be done easily from linux:
     * `/usr/sbin/sgdisk --zap-all [DISK_TO_WIPE]`
     * `dd if=/dev/zero of=[DISK_TO_WIPE] bs=1M count=100 oflag=direct,dsync`
@@ -55,9 +57,10 @@ such as installing software, editing files and using a command line interface.
 ### Software
 
 Installed on a PC or raspberry pi that will not be part of the cluster:
+
 * talosctl
 * kubectl
-* terraform 
+* terraform
   
 I recommend using a raspberry pi or other linux system, as we can also use it as a pull-through cache for container images.
 
@@ -66,7 +69,7 @@ I recommend using a raspberry pi or other linux system, as we can also use it as
 Various names and network config are mentioned throughout this repo, you can change them as needed.
 
 * Cluster name
-  * vanguard
+  * fellowship-of-the-ring
 * Network
   * 192.168.57.0/24
   * Gateway: 192.168.57.1
@@ -76,13 +79,10 @@ Various names and network config are mentioned throughout this repo, you can cha
   * 192.168.57.8
 * Control plane nodes:
   * controlplane-0 - 192.168.57.10
-  * controlplane-1 - 192.168.57.11
-  * controlplane-2 - 192.168.57.12
 * Worker nodes:
-  * worker-0 - 192.168.57.15
-  * worker-1 - 192.168.57.16
-  * worker-2 - 192.168.57.17
-  * worker-3 - 192.168.57.18
+  * worker-0 - 192.168.57.14
+  * worker-1 - 192.168.57.15
+  * worker-2 - 192.168.57.16
 * Storage
   * microSD card for Talos (`/dev/mmcblk0`)
   * USB-based storage for rook-ceph on worker nodes (`/dev/sda`)
@@ -90,8 +90,9 @@ Various names and network config are mentioned throughout this repo, you can cha
 ## Build a cluster with Talos
 
 Generate cluster config:
+
 ```shell
-talosctl gen config vanguard https://192.168.57.8:3443 --install-disk /dev/mmcblk0
+talosctl gen config fellowship-of-the-ring https://192.168.57.8:3443 --install-disk /dev/mmcblk0
 ```
 
 Setup your `~/.talos/config`:

@@ -6,9 +6,7 @@ variable "region" {
 
 variable "control-plane-nodes" {
   default = [
-    "192.168.57.10",
-    "192.168.57.11",
-    "192.168.57.12",
+    "192.168.57.10"
   ]
   type        = list(string)
   description = "Set to whatever IPs you are using for the control plane nodes."
@@ -68,11 +66,11 @@ variable "vpa-chart-version" {
 variable "ceph-block-classes" {
   default = {
     standard = {
-      replicated_size   = 2
+      replicated_size   = 1
       target_size_ratio = -1
     }
     durable = {
-      replicated_size   = 3
+      replicated_size   = 2
       target_size_ratio = -1
     }
   }
@@ -86,14 +84,14 @@ variable "ceph-block-classes" {
 variable "ceph-object-classes" {
   default = {
     standard = {
-      replicated_size = 2
-      data_chunks     = 3
+      replicated_size = 1
+      data_chunks     = 2
       coding_chunks   = 1
     }
     durable = {
-      replicated_size = 3
-      data_chunks     = 2
-      coding_chunks   = 2
+      replicated_size = 2
+      data_chunks     = 1
+      coding_chunks   = 1
     }
   }
   type = map(object({
