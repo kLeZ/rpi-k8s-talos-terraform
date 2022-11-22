@@ -16,9 +16,8 @@ resource "helm_release" "vertical-pod-autoscaler" {
         storage            = "prometheus"
       }
     }
-    // This helm chart uses an image for the admissionController that doesn't support arm64 yet
-    //admissionController = {
-    //  enabled = true
-    //}
+    admissionController = {
+      enabled = true
+    }
   })]
 }

@@ -19,7 +19,7 @@ resource "kubernetes_config_map" "metallb_config" {
         {
           name      = "default"
           protocol  = "layer2"
-          addresses = ["192.168.57.100-192.168.57.254"]
+          addresses = var.metallb-node-range
         }
       ]
     })

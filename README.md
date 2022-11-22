@@ -71,18 +71,18 @@ Various names and network config are mentioned throughout this repo, you can cha
 * Cluster name
   * fellowship-of-the-ring
 * Network
-  * 192.168.57.0/24
-  * Gateway: 192.168.57.1
-  * DHCP range: 192.168.57.50-99
-  * DNS server: 192.168.57.1
+  * 192.168.42.0/24
+  * Gateway: 192.168.42.1
+  * DHCP range: 192.168.42.50-99
+  * DNS server: 192.168.42.1
 * Shared/Virtual IP for Talos/Kubernetes
-  * 192.168.57.8
+  * 192.168.42.8
 * Control plane nodes:
-  * controlplane-0 - 192.168.57.10
+  * controlplane-0 - 192.168.42.10
 * Worker nodes:
-  * worker-0 - 192.168.57.14
-  * worker-1 - 192.168.57.15
-  * worker-2 - 192.168.57.16
+  * worker-0 - 192.168.42.14
+  * worker-1 - 192.168.42.15
+  * worker-2 - 192.168.42.16
 * Storage
   * microSD card for Talos (`/dev/mmcblk0`)
   * USB-based storage for rook-ceph on worker nodes (`/dev/sda`)
@@ -92,13 +92,13 @@ Various names and network config are mentioned throughout this repo, you can cha
 Generate cluster config:
 
 ```shell
-talosctl gen config fellowship-of-the-ring https://192.168.57.8:3443 --install-disk /dev/mmcblk0
+talosctl gen config fellowship-of-the-ring https://192.168.42.8:3443 --install-disk /dev/mmcblk0
 ```
 
 Setup your `~/.talos/config`:
 
 ```shell
-talosctl --talosconfig=./talosconfig config endpoint 192.168.57.8
+talosctl --talosconfig=./talosconfig config endpoint 192.168.42.8
 ```
 
 Create a file for each control plane node from the template [talos/controlplane.yaml](talos/controlplane.yaml), save as `cp#.yaml`.
@@ -109,22 +109,22 @@ Next, create a file for each control plane node from the template [talos/join.ya
 Apply these configs to your nodes, you will need to change the IPs to match whatever was assigned by DHCP:
 
 ```shell
-talosctl apply-config --insecure --nodes 192.168.57.50 --file cp0.yaml
-talosctl apply-config --insecure --nodes 192.168.57.54 --file wn0.yaml
-talosctl apply-config --insecure --nodes 192.168.57.55 --file wn1.yaml
-talosctl apply-config --insecure --nodes 192.168.57.56 --file wn2.yaml
+talosctl apply-config --insecure --nodes 192.168.42.50 --file cp0.yaml
+talosctl apply-config --insecure --nodes 192.168.42.54 --file wn0.yaml
+talosctl apply-config --insecure --nodes 192.168.42.55 --file wn1.yaml
+talosctl apply-config --insecure --nodes 192.168.42.56 --file wn2.yaml
 ```
 
 Once controlplane-0 is started you'll be able to bootstrap the cluster:
 
 ```shell
-talosctl bootstrap --nodes 192.168.57.10 --endpoints 192.168.57.10
+talosctl bootstrap --nodes 192.168.42.10 --endpoints 192.168.42.10
 ```
 
 Have `talosctl` automatically setup your `~/.kube/config` so you can use `kubectl`:
 
 ```shell
-talosctl kubeconfig --nodes 192.168.57.10
+talosctl kubeconfig --nodes 192.168.42.10
 ```
 
 The bootstrap process will take some time to complete, wait until all nodes and pods are online and ready. You can monitor

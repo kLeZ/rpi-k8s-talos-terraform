@@ -6,10 +6,18 @@ variable "region" {
 
 variable "control-plane-nodes" {
   default = [
-    "192.168.57.10"
+    "192.168.42.10"
   ]
   type        = list(string)
   description = "Set to whatever IPs you are using for the control plane nodes."
+}
+
+variable "metallb-node-range" {
+  default = [
+    "192.168.42.100-192.168.42.254"
+  ]
+  type        = list(string)
+  description = "Set to whatever IPs you are using for the MetalLB range."
 }
 
 variable "metrics-server-chart-version" {
