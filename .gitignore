@@ -248,3 +248,5 @@ dmypy.json
 cython_debug/
 
 output/
+variables.tf
+terraform.tfvars

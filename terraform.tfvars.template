@@ -1,0 +1,5 @@
+etcd-ca = {
+  enabled = true
+  cert    = "$KUBE_CA_CRT"
+  key     = "$KUBE_CA_KEY"
+}

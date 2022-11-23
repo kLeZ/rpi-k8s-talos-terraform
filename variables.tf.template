@@ -6,7 +6,7 @@ variable "region" {
 
 variable "control-plane-nodes" {
   default = [
-    "192.168.42.10"
+    "${KUBE_MASTER_IPS}"
   ]
   type        = list(string)
   description = "Set to whatever IPs you are using for the control plane nodes."
@@ -14,7 +14,7 @@ variable "control-plane-nodes" {
 
 variable "metallb-node-range" {
   default = [
-    "192.168.42.100-192.168.42.254"
+    "${KUBE_SUBNET}.${KUBE_MTLLB_START_IP}-${KUBE_SUBNET}.${KUBE_MTLLB_STOP_IP}"
   ]
   type        = list(string)
   description = "Set to whatever IPs you are using for the MetalLB range."
