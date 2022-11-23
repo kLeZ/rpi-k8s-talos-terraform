@@ -104,7 +104,7 @@ talosctl --talosconfig=./talosconfig config endpoint 192.168.42.8
 Create a file for each control plane node from the template [talos/controlplane.yaml](talos/controlplane.yaml), save as `cp#.yaml`.
 The various tokens, certs and keys can be found in the `controlplane.yaml` file that `talosctl` generated.
 
-Next, create a file for each control plane node from the template [talos/join.yaml](talos/join.yaml), save as `wn#.yaml`.
+Next, create a file for each control plane node from the template [talos/worker.yaml](talos/worker.yaml), save as `wn#.yaml`.
 
 Apply these configs to your nodes, you will need to change the IPs to match whatever was assigned by DHCP:
 
