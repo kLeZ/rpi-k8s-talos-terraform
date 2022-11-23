@@ -92,7 +92,7 @@ Various names and network config are mentioned throughout this repo, you can cha
 Generate cluster config:
 
 ```shell
-talosctl gen config fellowship-of-the-ring https://192.168.42.8:3443 --install-disk /dev/mmcblk0
+talosctl gen config fellowship-of-the-ring https://192.168.42.8:6443 --install-disk /dev/mmcblk0
 ```
 
 Setup your `~/.talos/config`:
