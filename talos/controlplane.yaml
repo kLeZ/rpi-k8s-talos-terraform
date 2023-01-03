@@ -24,7 +24,7 @@ machine:
       - {{NET_NAMESERVER}}
   install:
     disk: /dev/mmcblk0
-    image: ghcr.io/talos-systems/installer:v0.10.0
+    image: ghcr.io/siderolabs/installer:v1.2.5
     bootloader: true # Indicates if a bootloader should be installed.
     wipe: false # Indicates if the installation disk should be wiped at installation time.
     extraKernelArgs:

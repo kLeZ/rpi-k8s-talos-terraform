@@ -93,5 +93,5 @@ help: ## Display this help
 .PHONY: prepare
 prepare: ## Create all necessary directories to be used in build
 	mkdir -p ./$(OUTPUT_PATH)/
-	sudo sgdisk --zap-all $(MNT_DEVICE)
-	sudo dd if=/dev/zero of=$(MNT_DEVICE) bs=1M count=100 oflag=direct,dsync
+#	sudo sgdisk --zap-all $(MNT_DEVICE)
+#	sudo dd if=/dev/zero of=$(MNT_DEVICE) bs=1M count=100 oflag=direct,dsync
